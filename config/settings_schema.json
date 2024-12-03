@@ -1,0 +1,31 @@
+[
+  {
+    "name": "主题信息",
+    "settings": [
+      {
+        "type": "header",
+        "content": "极简主义主题"
+      }
+    ]
+  },
+  {
+    "name": "标志设置",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "标志图片"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 250,
+        "step": 10,
+        "unit": "px",
+        "label": "自定义标志宽度",
+        "default": 100
+      }
+    ]
+  }
+] 

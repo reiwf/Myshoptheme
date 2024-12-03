@@ -1,0 +1,49 @@
+<footer class="site-footer">
+  <div class="footer-content">
+    {% if linklists.footer.links.size > 0 %}
+      <nav class="footer-menu">
+        {% for link in linklists.footer.links %}
+          <a href="{{ link.url }}" class="footer-link">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+    
+    <div class="copyright">
+      <small>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ 'general.copyright' | t }}</small>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  padding: calc(var(--spacing-unit) * 2) 0;
+  margin-top: calc(var(--spacing-unit) * 4);
+  border-top: 1px solid var(--color-light-grey);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-bottom: var(--spacing-unit);
+}
+
+.footer-link {
+  font-size: 0.9rem;
+}
+
+.copyright {
+  color: #666;
+}
+</style>
+
+{% schema %}
+{
+  "name": "页脚",
+  "settings": []
+}
+{% endschema %} 

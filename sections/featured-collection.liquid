@@ -1,0 +1,74 @@
+<div class="featured-collection">
+  {% if section.settings.collection != blank %}
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <div class="product-grid">
+      {% for product in collections[section.settings.collection].products limit: section.settings.product_limit %}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}">
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.price | money }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "精选商品",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "标题",
+      "default": "精选商品"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "选择商品系列"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 6,
+      "label": "商品数量"
+    }
+  ],
+  "presets": [
+    {
+      "name": "精选商品",
+      "category": "商品"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.featured-collection {
+  padding: calc(var(--spacing-unit) * 2) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.product-card {
+  text-align: center;
+}
+
+.product-card img {
+  margin-bottom: var(--spacing-unit);
+}
+
+.product-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+</style> 
