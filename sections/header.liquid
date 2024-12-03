@@ -1,24 +1,59 @@
 <header class="site-header">
   <div class="header-wrapper">
+    <div class="header-left">
+      <button class="menu-button" aria-label="Menu">
+        {% render 'icon-menu' %}
+      </button>
+    </div>
+
     <div class="logo-container">
       {% if settings.logo != blank %}
-        <img src="{{ settings.logo | img_url: 'medium' }}" alt="{{ shop.name }}">
+        <img src="{{ settings.logo | img_url: 'medium' }}" alt="{{ shop.name }}" class="logo">
       {% else %}
         <h1 class="site-title">{{ shop.name }}</h1>
       {% endif %}
     </div>
 
-    <nav class="main-nav">
-      {% for link in linklists.main-menu.links %}
-        <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
-      {% endfor %}
-    </nav>
-
-    <div class="header-icons">
-      <a href="/cart" class="cart-icon">
-        {% render 'icon-cart' %}
-        <span class="cart-count">{{ cart.item_count }}</span>
+    <div class="header-right">
+      <a href="/account" class="header-icon" aria-label="Account">
+        {% render 'icon-account' %}
       </a>
+      <a href="/cart" class="header-icon" aria-label="Cart">
+        {% render 'icon-cart' %}
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <form action="/search" method="get" class="search-form">
+      <input type="search" 
+             name="q" 
+             placeholder="Search products" 
+             class="search-input"
+             aria-label="Search">
+      {% render 'icon-search' %}
+    </form>
+  </div>
+
+  <div class="categories-container">
+    <h2 class="categories-title">Browse by categories</h2>
+    <div class="categories-grid">
+      <a href="/collections/all" class="category-tag">
+        {% render 'icon-all' %}
+        Show All
+      </a>
+      <a href="/collections/moisturizer" class="category-tag">
+        {% render 'icon-moisturizer' %}
+        Moisturizer
+      </a>
+      <a href="/collections/serum" class="category-tag">
+        {% render 'icon-serum' %}
+        Serum
+      </a>
+      <!-- 添加更多分类 -->
     </div>
   </div>
 </header>
@@ -26,13 +61,33 @@
 <style>
 .site-header {
   padding: var(--spacing-unit) 0;
-  border-bottom: 1px solid var(--color-light-grey);
+  background: var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 var(--spacing-unit);
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+.logo-container {
+  text-align: center;
+}
+
+.logo {
+  height: 32px;
+  width: auto;
 }
 
 .site-title {
@@ -40,33 +95,54 @@
   margin: 0;
 }
 
-.main-nav {
-  display: flex;
-  gap: calc(var(--spacing-unit) * 2);
-}
-
-.nav-link {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.cart-icon {
+.header-icon {
   position: relative;
+  color: var(--color-text);
 }
 
 .cart-count {
-  font-size: 0.8rem;
   position: absolute;
   top: -8px;
   right: -8px;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.search-container {
+  padding: calc(var(--spacing-unit) * 1.5) var(--spacing-unit);
+}
+
+.search-form {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.categories-container {
+  padding: var(--spacing-unit);
+}
+
+.categories-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-unit);
+}
+
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) / 2);
 }
 
 @media screen and (max-width: 768px) {
   .header-wrapper {
-    flex-direction: column;
-    gap: var(--spacing-unit);
-    text-align: center;
+    padding: var(--spacing-unit) calc(var(--spacing-unit) / 2);
+  }
+  
+  .logo {
+    height: 24px;
   }
 }
 </style> 
